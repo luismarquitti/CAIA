@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CAIA Document Viewer &amp; File Explorer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5247e6",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#0c0b14",
+                        "slate-panel": "#121121",
+                        "slate-border": "#1e1d2d",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-effect { backdrop-filter: blur(12px); background-color: rgba(18, 17, 33, 0.8); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #2a2938; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3f3e52; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-200 antialiased overflow-hidden h-screen">
+<div class="flex h-full">
+<!-- Sidebar -->
+<aside class="w-[280px] bg-slate-panel border-r border-slate-border flex flex-col shrink-0">
+<!-- Project Header -->
+<div class="p-4 flex items-center gap-3 border-b border-slate-border">
+<div class="size-10 rounded-lg bg-primary flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined">dataset</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1">
+<h1 class="text-white text-sm font-semibold">CAIA Project</h1>
+<span class="material-symbols-outlined text-xs text-slate-500">expand_more</span>
+</div>
+<p class="text-slate-500 text-xs">v1.2.0-stable</p>
+</div>
+</div>
+<!-- Navigation Tree -->
+<div class="flex-1 overflow-y-auto py-4 px-2">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 px-3 py-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-[20px]">folder_open</span>
+<span class="text-sm font-medium">src</span>
+</div>
+<div class="pl-4 flex flex-col gap-1">
+<div class="flex items-center gap-2 px-3 py-1.5 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-[18px]">javascript</span>
+<span class="text-sm">agent.core.js</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 bg-primary/20 text-primary rounded-lg cursor-pointer border-l-2 border-primary">
+<span class="material-symbols-outlined text-[18px]">description</span>
+<span class="text-sm font-semibold">SPEC.md</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 text-slate-200 bg-white/5 rounded-lg cursor-pointer transition-colors border-l-2 border-transparent hover:border-slate-500">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+<span class="text-sm font-medium">PLAN.md</span>
+</div>
+</div>
+<div class="flex items-center gap-2 px-3 py-2 mt-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-[20px]">folder</span>
+<span class="text-sm font-medium">assets</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm font-medium">Config</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-[20px]">monitoring</span>
+<span class="text-sm font-medium">Agent Logs</span>
+</div>
+</div>
+</div>
+<!-- Sidebar Bottom -->
+<div class="p-4 border-t border-slate-border flex flex-col gap-4">
+<div class="flex items-center justify-between px-2">
+<div class="flex items-center gap-2">
+<div class="relative">
+<div class="size-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></div>
+</div>
+<span class="text-xs font-medium text-slate-400 uppercase tracking-wider">Agent Status</span>
+</div>
+<span class="text-[10px] bg-emerald-500/10 text-emerald-500 px-1.5 py-0.5 rounded border border-emerald-500/20">Active</span>
+</div>
+<div class="flex items-center gap-3 p-2 bg-white/5 rounded-xl border border-white/5">
+<div class="size-9 rounded-full bg-cover bg-center ring-2 ring-primary/20" data-alt="User profile avatar circle" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDFX7NOfsNjMSQ-Jz-gqzvcLrlamHhLLAZZLf3P03wMPd1fFcOlKwLCmaULFV1FJfHapwAnVB-GXesOZVw0FvZW7mNOyNQVon-yLap0SP1vyoGVdAGEbd_4Lhiev1KQ2yqR0DV2_xofEU1COPDqKFpY_RS7pcZiA8tOPio3tlHzUTkcwOjbot14AJX3nAU6hng1SLEQGa51D3g-FOXKxOyJnkIT28km-nQnAdOhEYHZp1W-tL41cIye2x5DNlyUKmSipA1jAE4zhd0')"></div>
+<div class="flex flex-col">
+<p class="text-sm font-medium text-white">Alex Dev</p>
+<p class="text-[10px] text-slate-500">Pro Developer</p>
+</div>
+<span class="material-symbols-outlined text-slate-500 ml-auto cursor-pointer hover:text-white transition-colors">logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 bg-background-dark">
+<!-- Top Bar (Header) -->
+<header class="glass-effect border-b border-slate-border px-6 h-16 flex items-center justify-between sticky top-0 z-50">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-2 text-sm">
+<span class="text-slate-500 hover:text-slate-300 cursor-pointer">Home</span>
+<span class="material-symbols-outlined text-xs text-slate-700">chevron_right</span>
+<span class="text-slate-500 hover:text-slate-300 cursor-pointer">Project</span>
+<span class="material-symbols-outlined text-xs text-slate-700">chevron_right</span>
+<span class="text-white font-medium">SPEC.md</span>
+</div>
+<!-- Command Palette Search -->
+<div class="flex-1 max-w-xl px-12">
+<div class="relative">
+<div class="absolute inset-y-0 left-3 flex items-center pointer-events-none text-slate-500">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full bg-background-dark/50 border border-slate-border rounded-lg py-2 pl-10 pr-12 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all" placeholder="Search artifacts... (Ctrl + K)" type="text"/>
+<div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+<kbd class="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-semibold text-slate-500 bg-slate-800 border border-slate-700 rounded-md">⌘ K</kbd>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm font-semibold rounded-lg transition-all border border-slate-700">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                        Edit
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary/90 text-white text-sm font-semibold rounded-lg shadow-lg shadow-primary/20 transition-all">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+                        Run Agent
+                    </button>
+</div>
+</header>
+<!-- Document Content -->
+<div class="flex-1 overflow-y-auto">
+<div class="max-w-[850px] mx-auto py-12 px-8">
+<!-- Document Heading -->
+<div class="mb-10 pb-10 border-b border-slate-border">
+<div class="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-[0.2em] mb-4">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                            Agent Generated
+                        </div>
+<h1 class="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">Specification.md</h1>
+<div class="flex flex-wrap items-center gap-6 text-sm text-slate-500">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span>Updated 2h ago</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">smart_toy</span>
+<span>Agent-01 (v1.0)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">tag</span>
+<span>Documentation</span>
+</div>
+</div>
+</div>
+<!-- Markdown Body -->
+<div class="prose prose-invert prose-slate max-w-none">
+<p class="text-xl text-slate-300 leading-relaxed mb-8">
+                            This document outlines the core architecture and interaction patterns for the CAIA autonomous agent framework. 
+                            The system is designed for high-concurrency tasks requiring immediate semantic context retrieval.
+                        </p>
+<h2 class="text-2xl font-semibold text-white mt-12 mb-4 flex items-center gap-2">
+<span class="text-primary">1.</span> System Architecture
+                        </h2>
+<p class="text-slate-400 mb-6">
+                            The core engine utilizes a dual-layer approach to processing. The first layer handles raw telemetry data, while the second layer translates this into actionable intent for the LLM.
+                        </p>
+<!-- Code Block -->
+<div class="bg-black/50 border border-slate-border rounded-xl p-6 font-mono text-sm leading-relaxed mb-8 shadow-inner">
+<div class="flex items-center justify-between mb-4 pb-2 border-b border-white/5">
+<span class="text-slate-500 flex items-center gap-2 uppercase tracking-tighter text-[11px] font-bold">
+<span class="material-symbols-outlined text-[16px]">code</span> architecture.json
+                                </span>
+<span class="text-slate-600 text-[10px]">JSON</span>
+</div>
+<pre class="text-primary-400"><code class="text-slate-300">{
+  <span class="text-indigo-400">"agent_id"</span>: <span class="text-emerald-400">"caia-v1-alpha"</span>,
+  <span class="text-indigo-400">"capabilities"</span>: [
+    <span class="text-emerald-400">"code_analysis"</span>,
+    <span class="text-emerald-400">"context_retrieval"</span>,
+    <span class="text-emerald-400">"autonomous_repair"</span>
+  ],
+  <span class="text-indigo-400">"concurrency_limit"</span>: <span class="text-orange-400">64</span>,
+  <span class="text-indigo-400">"telemetry_enabled"</span>: <span class="text-primary">true</span>
+}</code></pre>
+</div>
+<h2 class="text-2xl font-semibold text-white mt-12 mb-4">2. Interactive Patterns</h2>
+<ul class="space-y-4 text-slate-400 mb-10">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
+<span><strong>Reactive Mode:</strong> Agent responds only to direct user prompts within the explorer.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
+<span><strong>Autonomous Mode:</strong> Agent monitors repository changes and suggests documentation updates in real-time.</span>
+</li>
+</ul>
+<!-- Callout box -->
+<div class="bg-primary/10 border-l-4 border-primary rounded-r-lg p-6 mb-8">
+<div class="flex items-center gap-2 mb-2 text-primary">
+<span class="material-symbols-outlined text-[20px]">info</span>
+<span class="font-semibold">Important Note</span>
+</div>
+<p class="text-slate-300 text-sm">
+                                Autonomous mode is currently in beta. Ensure all auto-generated artifacts are reviewed by a human operator before merging into production branches.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
