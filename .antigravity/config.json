@@ -1,0 +1,26 @@
+{
+    "project_name": "CAIA",
+    "version": "1.0",
+    "context": {
+        "pinned_files": [
+            "SPEC.md",
+            "UI_UX.md"
+        ],
+        "ignored_folders": [
+            "node_modules",
+            "__pycache__",
+            ".next",
+            "venv"
+        ]
+    },
+    "agent_roles": {
+        "planner": ".antigravity/agents/planner.agent.md",
+        "red": ".antigravity/agents/tdd-red.agent.md",
+        "green": ".antigravity/agents/tdd-green.agent.md",
+        "critic": ".antigravity/agents/critic.agent.md"
+    },
+    "workflow_rules": {
+        "require_spec_check": true,
+        "auto_critique": true
+    }
+}
